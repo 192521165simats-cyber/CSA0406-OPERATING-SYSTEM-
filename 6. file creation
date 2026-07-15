@@ -1,0 +1,10 @@
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main()
+{
+    open("student.txt", O_CREAT, 0777);
+    printf("File Created");
+    return 0;
+}
