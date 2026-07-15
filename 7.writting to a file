@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main()
+{
+    char name[20];
+    printf("Enter Name: ");
+    scanf("%s", name);
+
+    int fd = open("student.txt", O_WRONLY | O_CREAT, 0777);
+    write(fd, name, sizeof(name));
+    close(fd);
+
+    return 0;
+}
