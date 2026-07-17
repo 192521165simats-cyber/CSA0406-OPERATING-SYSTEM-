@@ -86,4 +86,18 @@ Child process executes new program using exec()
 Parent process waits using wait()
 STOP
 ****question 5****
-a) importance of file managemnt system    
+a) importance of file managemnt system
+file managemnet system is most important feature in operating system beacuse it help to store manage and process the data in file in proper manner.
+it also allow user to read,reawrite,create,deklete the file. 
+it helps in protectoing file from the unauthorized user.
+b)use of open and close system calls
+  open() =To open the source file and destination file.
+  close()= this is used to close the file after the work has been finished.
+c)pseudo code
+START
+Open file
+Read file contents
+Close file
+STOP
+
+
