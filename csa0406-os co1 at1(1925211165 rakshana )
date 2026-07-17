@@ -1,0 +1,89 @@
+                            ****question 1*****
+a)The most suitable Operating System for this environment is a Multi-user Operating System.
+Justification:
+A multi-user operating system allows more than one user to use the same computer at the same time.
+  For example, in a university computer lab, many students can log in to the same Linux system and run their own programs. 
+  The operating system manages the CPU, memory, and other resources so that each user can work properly without disturbing others.
+  Linux is a good example of a multi-user operating system because it supports multiple users and gives each user a separate account with their own permissions.
+b)TWO RESPONSIBILITY OF KERNEL IN MANAGING MULTI USER OPERATING SYSTEM
+ the main two responsibility of kernel
+ 1.process schdeuling 
+ 2.memory management
+ 1. Process Scheduling:
+The kernel decides which process should use the CPU and for how long.
+  It switches between different processes so that all users can run their programs smoothly.
+2. Memory Management:
+The kernel allocates memory to each process and protects one process from accessing another process's memory. 
+  This helps the system run safely and prevents data corruption.
+  c) PSUEDO CODE to create child proccess:
+start
+create a child process using fork
+if child then
+display child process
+display child pid using getpid
+display parent pid using getpid
+else if
+   Display Parent Process
+    Display Parent Process ID using getpid()
+    Display Child Process ID fork()
+else
+  display child ctreation failed
+end if 
+  stop
+
+  ****question 2****
+  a)system calls required for file creation, writing, reading, and closing.
+    read() = this is used to read the filr
+    write() = this is used to write the data in the filr
+    create()= this is used to create the new file 
+    close()= this is used to close the file after the work has been finished.
+  b)two file management system calls.
+     create()= this is used to create the new file 
+    close()= this is used to close the file after the work has been finished.
+  c)pseudo code to create write and close the file 
+  create the new file
+  if file created
+  write "rakshana"
+  close the file
+  else 
+    display file npt created
+    stop
+  **** question 3****
+  a)system calls required to complete this operation.
+  open() =To open the source file and destination file.
+read() = To read the contents from the source file.
+write() = To write the contents into the destination file.
+close() = To close both files after copying is completed.
+    b)purpose of any two of these system calls
+1.read()
+The read() system call is used to read the data from the source file.
+It copies the file content into the program so that it can be written to another file.
+2. write()
+The write() system call is used to write data into the destination file.
+It stores the copied content in the new file.
+    c) PSEUDO CODE TO COPY CONTENT AND MOVE TO ANOTHER FILE
+Open the source file
+open the destination file
+read source fille
+write to destination file 
+close the both files 
+stop
+****question 4****
+a) purpose of fork() and exec()_
+1.fork()
+The fork() system call is used to create a new child process.
+The child process is a copy of the parent process.
+2.exec()
+The exec() system call is used to replace the current process with a new program.
+After exec() is called, the new program starts executing.
+b)Role of wait()
+The wait() system call is used by the parent process to wait until the child process finishes its execution.
+It helps the parent process continue only after the child process has completed its work.
+c)pseudo code
+START
+Create child process using fork()
+Child process executes new program using exec()
+Parent process waits using wait()
+STOP
+****question 5****
+a) importance of file managemnt system    
