@@ -2,9 +2,7 @@
 a)The most suitable Operating System for this environment is a Multi-user Operating System.
 Justification:
 A multi-user operating system allows more than one user to use the same computer at the same time.
-  For example, in a university computer lab, many students can log in to the same Linux system and run their own programs. 
-  The operating system manages the CPU, memory, and other resources so that each user can work properly without disturbing others.
-  Linux is a good example of a multi-user operating system because it supports multiple users and gives each user a separate account with their own permissions.
+  For example, in a university computer lab, many students can log in to the same Linux system and run their own programs.
 b)TWO RESPONSIBILITY OF KERNEL IN MANAGING MULTI USER OPERATING SYSTEM
  the main two responsibility of kernel
  1.process schdeuling 
