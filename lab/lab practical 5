@@ -1,0 +1,20 @@
+#include<stdio.h>
+
+int main()
+{
+    int p[3]={3,1,2},i,j,t;
+
+    for(i=0;i<3;i++)
+        for(j=i+1;j<3;j++)
+            if(p[i]>p[j])
+            {
+                t=p[i];
+                p[i]=p[j];
+                p[j]=t;
+            }
+
+    printf("Priority : ");
+
+    for(i=0;i<3;i++)
+        printf("%d ",p[i]);
+}
