@@ -1,0 +1,132 @@
+NAME: S.RAKSHANA 
+REG NO: 192521165
+COURSE: OPERATING SYSTEM
+COURSE CODE : CSA0406
+**********ANSWER 1*********
+  OPTIMIZED LINUX FILE SYSTEM INCLUDING SUITABLE PARTIZIONING UTILIZATION
+ A server has a total storage capacity of 50 GB. It needs to store system files, user files, application data and rapidly growing log files. If log files grow continuously, they may use all the available disk space and cause important services to stop. So, proper partitioning and log management are required.
+PROPOSED PARTIONING LAYOUT:
+otal Disk = 50 GB
+
+/boot       =  1 GB    -> Boot and kernel files
+/           =  8 GB    -> Linux operating system
+/home       = 12 GB    -> User files
+/var        =  8 GB    -> Application data
+/var/log    = 10 GB    -> System and application logs
+swap        =  4 GB    -> Virtual memory
+Free Space  =  7 GB    -> Emergency use and future growth
+
+Total       = 50 GB
+Keeping /var/log separate is important because even if logs become very large, they cannot consume the space of the root filesystem.
+
+Using LVM
+LVM (Logical Volume Manager) can be used because it provides flexible storage management and makes it easier to resize partitions later.
+  
+DISK MONITORING:
+df -h /var/log
+du -sh /var/log/*
+journalctl --disk-usage
+CONCLUSION:
+Conclusion
+A separate 10 GB /var/log filesystem, LVM, logrotate, compression and regular monitoring ensure that logs do not exceed 10 GB and prevent disk exhaustion from affecting critical services.
+  ************ANSWER 2************
+Frequent context switching reduces CPU performance because the CPU spends time switching between processes.
+  Since hardware cannot be upgraded, Linux scheduler and kernel-level optimizations can be used.
+1. Check CPU and Context Switching
+top
+vmstat 1
+pidstat -p <PID> 1
+These commands help identify CPU usage and context-switching activity.
+
+2. Scheduler Priority
+Use nice and renice to control process priority.
+sudo renice +10 -p <PID>
+For real-time applications, use real-time scheduling:
+sudo chrt -f 80 ./realtime_app
+SCHED_FIFO gives the real-time process high priority. It should be used carefully because it can affect other processes.
+
+  3. CPU Affinity
+A process can be assigned to specific CPU cores:
+sudo taskset -cp 2,3 <PID>
+This reduces unnecessary CPU migration and can improve performance.
+
+4. Kernel Modules
+Check currently loaded modules:
+lsmod
+Get module information:
+modinfo <module>
+Remove an unnecessary module if it is safe:
+sudo modprobe -r <module>
+Only required modules should be loaded to reduce unnecessary resource usage.
+
+5. Real-Time Kernel
+For applications requiring very low latency, a PREEMPT_RT kernel can be used.
+  It improves kernel responsiveness and is suitable for real-time workloads.
+
+Conclusion
+Scheduler priority using chrt and renice, CPU affinity using taskset, proper kernel-module management and a real-time kernel can reduce context-switching delays and improve real-time performance without upgrading hardware.
+ ***********ANSWER 3*********
+Processing 1 million entries within 2 minutes requires efficient commands.
+We should avoid processing each line using separate commands because it creates high overhead.
+awk is suitable because it can process the complete file in a single pass.
+Efficient Script
+#!/bin/bash
+time LC_ALL=C awk '
+{
+    count[$9]++
+}
+END {
+    for (code in count)
+        print code, count[code]
+}' access.log > result.txt
+
+The above script counts HTTP status codes from the log file.
+
+Filtering Errors
+LC_ALL=C grep -F "ERROR" application.log |
+awk '{count[$1]++}
+END {
+    for (x in count)
+        print x, count[x]
+}'
+
+Why These Commands?
+awk processes large files in a single pass.
+grep -F provides fast fixed-string searching.
+LC_ALL=C reduces locale-processing overhead.
+Avoiding while read loops and repeated external commands improves speed.
+time checks whether processing finishes within 2 minutes.
+Conclusion:
+Using awk and grep -F with single-pass processing provides an efficient shell-based solution for processing 1 million log entries.
+  The execution time should be tested using time to ensure it stays below 120 seconds.
+
+
+*********ANSWER 5*********
+  Total RAM = 16 GB
+RAM required by 5 VMs:
+5 × 2 GB = 10 GB
+RAM required by host OS:
+4 GB
+Total required:
+10 GB + 4 GB = 14 GB
+Remaining RAM:
+16 GB - 14 GB = 2 GB
+Recommended Allocation
+Host OS = 4 GB
+VM1 = 2 GB
+VM2 = 2 GB
+VM3 = 2 GB
+VM4 = 2 GB
+VM5 = 2 GB
+Reserved RAM = 2 GB
+The 2 GB reserve should be kept for host overhead and temporary workload increases.
+Virtualization Techniques
+Memory Ballooning:
+Unused memory can be taken from less active VMs and given to VMs that need more memory.
+KSM (Kernel Samepage Merging):
+KSM can merge identical memory pages used by different VMs and reduce physical RAM usage.
+Memory Overcommit:
+It can be used carefully, but excessive overcommit should be avoided because it can cause swapping and reduce VM performance.
+Conclusion
+Each VM should be given at least 2 GB, the host should have 4 GB, and 2 GB should remain as reserve. Ballooning and KSM can improve memory utilization while maintaining stable performance for all five VMs.
+
