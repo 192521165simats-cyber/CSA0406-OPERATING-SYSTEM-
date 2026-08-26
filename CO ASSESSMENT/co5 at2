@@ -1,0 +1,117 @@
+NAME: RAKSHAN S
+REG NO: 192521165
+COURSE: OPERATING SYSTEM
+COURSE CODE:CSA0406
+***********ANSWER 1**********
+1.FILE SYSTEM SPACE MANAGEMENT
+  BEGIN
+    SET threshold = 80%
+    usage = GET_DISK_USAGE()
+      IF usage > threshold THEN
+        log_files = GET_LOG_FILES()
+        SORT log_files BY size DESCENDING
+       FOR each file IN log_files DO
+            IF file is old THEN
+                DELETE file
+            ELSE
+                COMPRESS or ROTATE file
+            ENDIF
+            usage = GET_DISK_USAGE()
+             IF usage <= threshold THEN
+                BREAK
+            ENDIF
+        ENDFOR
+    ENDIF
+    PRINT "Disk usage is within safe limit"
+END
+  **********ANSWER 2**********
+  PRIORITY BASED CPU SCHEDULING
+  BEGIN
+    INPUT process_list
+
+    WHILE process_list IS NOT EMPTY DO
+        SORT process_list BY priority DESCENDING
+
+        SELECT process WITH highest priority
+        ALLOCATE CPU to selected process
+        EXECUTE process
+
+        IF process IS completed THEN
+            REMOVE process FROM process_list
+        ELSE
+            REDUCE priority slightly
+            ADD process BACK to process_list
+        ENDIF
+    ENDWHILE
+
+    PRINT "All processes completed"
+END
+
+  *********ANSWER 3************
+  RAM RESOURCE MANAGEMNT FOR VIRTUAL MACHINES
+  BEGIN
+    total_RAM = 16 GB
+    host_reserved = 4 GB
+    available_RAM = total_RAM - host_reserved
+
+    INPUT number_of_VMs
+    min_RAM = 2 GB
+
+    FOR i = 1 TO number_of_VMs DO
+        IF available_RAM >= min_RAM THEN
+            ALLOCATE min_RAM TO VM[i]
+            available_RAM = available_RAM - min_RAM
+        ELSE
+            PRINT "Insufficient memory for VM", i
+        ENDIF
+    ENDFOR
+
+    PRINT "Remaining RAM =", available_RAM
+END
+
+  ***********ANSWER 4*********
+  HYPERVISIOR SELECTION
+  BEGIN
+    total_RAM = 16 GB
+    host_reserved = 4 GB
+    available_RAM = total_RAM - host_reserved
+
+    INPUT number_of_VMs
+    min_RAM = 2 GB
+
+    FOR i = 1 TO number_of_VMs DO
+        IF available_RAM >= min_RAM THEN
+            ALLOCATE min_RAM TO VM[i]
+            available_RAM = available_RAM - min_RAM
+        ELSE
+            PRINT "Insufficient memory for VM", i
+        ENDIF
+    ENDFOR
+
+    PRINT "Remaining RAM =", available_RAM
+END
+***********ANSWER 5*************
+  CPU AND MEMORY RESOURCE LIMITING
+  BEGIN
+    INPUT application_list
+
+    FOR each app IN application_list DO
+        CREATE resource_group for app
+
+        SET CPU limit for app
+        SET memory limit for app
+
+        ASSIGN app processes TO resource_group
+
+        MONITOR CPU and memory usage
+
+        IF usage exceeds limit THEN
+            THROTTLE CPU usage
+            LIMIT memory allocation
+        ENDIF
+    ENDFOR
+
+    PRINT "Resource usage is controlled"
+END
+
+  
